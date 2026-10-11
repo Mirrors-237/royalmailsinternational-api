@@ -1,0 +1,14 @@
+# Build output
+dist
+tsconfig.tsbuildinfo
+
+# Node dependencies
+node_modules
+
+# Logs
+*.log
+
+# Local env files
+.env
+.env.*
+!.env.example
