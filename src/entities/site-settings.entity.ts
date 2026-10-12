@@ -84,6 +84,31 @@ export class SiteSettings {
   @Column({ type: 'jsonb', default: {} })
   imageKeys: Partial<Record<string, string>>;
 
+  // ── Legal notice and privacy notice (empty = not shown on the website) ──
+  @Column({ default: '' })
+  legalForm: string;
+
+  @Column({ default: '' })
+  registrationNumber: string;
+
+  @Column({ default: '' })
+  vatNumber: string;
+
+  @Column({ default: '' })
+  publicationDirector: string;
+
+  @Column({ type: 'text', default: '' })
+  hostingProvider: string;
+
+  @Column({ type: 'text', default: '' })
+  dataRetention: string;
+
+  @Column({ type: 'text', default: '' })
+  dataProcessors: string;
+
+  @Column({ default: '' })
+  supervisoryAuthority: string;
+
   // ── SEO ───────────────────────────────────────────────
   @Column({ default: 'Transport Atlantic Courier | Air, Sea & Road Freight' })
   metaTitle: string;

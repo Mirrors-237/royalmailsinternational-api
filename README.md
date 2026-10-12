@@ -91,6 +91,9 @@ declared value or internal notes.
 
 - `homeContent`: home page texts, the three key figures and the example routes of the animated tracking card
   (`null` = the website's built-in defaults). Updated with `PUT /api/settings` (`homeContent: null` restores the defaults).
+- legal information for the Legal notice and Privacy pages (`legalForm`, `registrationNumber`, `vatNumber`,
+  `publicationDirector`, `hostingProvider`, `dataRetention`, `dataProcessors`, `supervisoryAuthority`;
+  empty = left out of the pages).
 - `images`: the website photos replaced in the admin, by slot (`hero`, `air`, `sea`, `road`, `customs`, `port`,
   `sorting`, `receive`, `business`). A missing slot means the built-in photo.
 

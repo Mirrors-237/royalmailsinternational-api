@@ -41,6 +41,16 @@ export class UpdateSettingsDto {
   @IsOptional() @ValidateNested() @Type(() => HomeContentDto)
   homeContent?: HomeContentDto | null;
 
+  // ── Legal notice and privacy notice ───────────────────
+  @IsOptional() @IsString() @MaxLength(160)  legalForm?: string;
+  @IsOptional() @IsString() @MaxLength(80)   registrationNumber?: string;
+  @IsOptional() @IsString() @MaxLength(40)   vatNumber?: string;
+  @IsOptional() @IsString() @MaxLength(120)  publicationDirector?: string;
+  @IsOptional() @IsString() @MaxLength(500)  hostingProvider?: string;
+  @IsOptional() @IsString() @MaxLength(1000) dataRetention?: string;
+  @IsOptional() @IsString() @MaxLength(1000) dataProcessors?: string;
+  @IsOptional() @IsString() @MaxLength(200)  supervisoryAuthority?: string;
+
   // ── SEO ───────────────────────────────────────────────
   @IsOptional() @IsString() @MaxLength(160) metaTitle?: string;
   @IsOptional() @IsString() @MaxLength(320) metaDescription?: string;
