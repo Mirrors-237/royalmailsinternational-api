@@ -94,13 +94,19 @@ declared value or internal notes.
 - legal information for the Legal notice and Privacy pages (`legalForm`, `registrationNumber`, `vatNumber`,
   `publicationDirector`, `hostingProvider`, `dataRetention`, `dataProcessors`, `supervisoryAuthority`;
   empty = left out of the pages).
-- `images`: the website photos replaced in the admin, by slot (`hero`, `air`, `sea`, `road`, `customs`, `port`,
-  `sorting`, `receive`, `business`). A missing slot means the built-in photo.
+- `images`: the images uploaded in the admin, by slot (a missing slot means the built-in image):
+  website photos (`hero`, `air`, `sea`, `road`, `customs`, `port`, `sorting`, `receive`, `business`),
+  photos replacing an illustration everywhere it appears (`illustration-send`, `-receive`, `-track`, `-business`,
+  `-customs`, `-courier`, `-support`, `-worldwide`) and the photos of the image blocks (`block-home`, `-send`,
+  `-receive`, `-business`, `-about`).
+- `contentBlocks`: the image and text blocks, by placement (`home`, `send`, `receive`, `business`, `about`):
+  switched on or off, title, text, button text and link (a page starting with `/` or an `https://` address),
+  photo description and side. A block is shown once it is switched on and has a photo and a title.
 
 | Route (admin, JWT) | Purpose |
 |---|---|
 | `POST /api/settings/branding/:kind` · `DELETE …` | Logo, logo for dark backgrounds, favicon (`logo`, `logoOnDark`, `favicon`; 2 MB) |
-| `POST /api/settings/images/:slot` · `DELETE …` | Website photos (JPG, PNG or WebP; 6 MB) |
+| `POST /api/settings/images/:slot` · `DELETE …` | Website photos, illustration replacements and block photos (JPG, PNG or WebP; 6 MB) |
 
 Uploaded files are checked by their signature (not the declared type), stored in S3 under content-hashed names
 and served publicly by `GET /api/branding/:file` and `GET /api/media/:file` with an immutable cache.

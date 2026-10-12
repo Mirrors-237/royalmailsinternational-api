@@ -1,4 +1,5 @@
 import type { HomeContent } from './home-content';
+import type { ContentBlocks } from './content-block';
 import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn } from 'typeorm';
 
 @Entity('site_settings')
@@ -80,9 +81,13 @@ export class SiteSettings {
   @Column({ type: 'jsonb', nullable: true })
   homeContent: HomeContent | null;
 
-  // S3 keys of the website photos, by slot (a missing slot = the built-in photo)
+  // S3 keys of the website photos, by slot (a missing slot = the built-in photo or illustration)
   @Column({ type: 'jsonb', default: {} })
   imageKeys: Partial<Record<string, string>>;
+
+  // Image and text blocks, by placement (their photos are in imageKeys, block-{placement})
+  @Column({ type: 'jsonb', default: {} })
+  contentBlocks: ContentBlocks;
 
   // ── Legal notice and privacy notice (empty = not shown on the website) ──
   @Column({ default: '' })

@@ -2,7 +2,10 @@ import { createHash } from 'node:crypto';
 import { BadRequestException } from '@nestjs/common';
 import { CONTENT_TYPES, detectType, type ImageType } from './branding.util';
 
-// Website photos that can be replaced from the admin (same names as MEDIA in the Nuxt app)
+// Images that can be uploaded from the admin (same names as in the Nuxt app, utils/media.ts):
+// - website photos, replacing the built-in ones;
+// - photos replacing an illustration, everywhere it appears (illustration-*);
+// - photos of the image and text blocks (block-*, see entities/content-block.ts).
 export enum MediaSlot {
   HERO     = 'hero',
   AIR      = 'air',
@@ -13,6 +16,21 @@ export enum MediaSlot {
   SORTING  = 'sorting',
   RECEIVE  = 'receive',
   BUSINESS = 'business',
+
+  ILLUSTRATION_SEND      = 'illustration-send',
+  ILLUSTRATION_RECEIVE   = 'illustration-receive',
+  ILLUSTRATION_TRACK     = 'illustration-track',
+  ILLUSTRATION_BUSINESS  = 'illustration-business',
+  ILLUSTRATION_CUSTOMS   = 'illustration-customs',
+  ILLUSTRATION_COURIER   = 'illustration-courier',
+  ILLUSTRATION_SUPPORT   = 'illustration-support',
+  ILLUSTRATION_WORLDWIDE = 'illustration-worldwide',
+
+  BLOCK_HOME     = 'block-home',
+  BLOCK_SEND     = 'block-send',
+  BLOCK_RECEIVE  = 'block-receive',
+  BLOCK_BUSINESS = 'block-business',
+  BLOCK_ABOUT    = 'block-about',
 }
 
 export const MEDIA_MAX_BYTES = 6 * 1024 * 1024;

@@ -43,7 +43,8 @@ export class SettingsController {
     return this.service.removeBranding(kind);
   }
 
-  // Admin: website photos, multipart upload, field "file"; slot = hero | air | sea | …
+  // Admin: website photos, illustration replacements and block photos; multipart upload, field "file"
+  // (slot = hero | air | … | illustration-send | … | block-home | …, see media.util.ts)
   @UseGuards(JwtAuthGuard)
   @Post('images/:slot')
   @UseInterceptors(FileInterceptor('file', { limits: { fileSize: MEDIA_MAX_BYTES, files: 1 } }))

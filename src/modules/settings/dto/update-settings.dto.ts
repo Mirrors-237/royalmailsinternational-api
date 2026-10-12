@@ -1,6 +1,7 @@
 import { Type } from 'class-transformer';
 import { IsEmail, IsOptional, IsString, IsUrl, Matches, MaxLength, ValidateIf, ValidateNested } from 'class-validator';
 import { HomeContentDto } from './home-content.dto';
+import { ContentBlocksDto } from './content-blocks.dto';
 
 // All fields optional; link fields also accept an empty string (= not set)
 const notEmpty = (_: unknown, v: unknown) => v !== '';
@@ -40,6 +41,10 @@ export class UpdateSettingsDto {
   // ── Home page content (null = back to the built-in defaults) ──
   @IsOptional() @ValidateNested() @Type(() => HomeContentDto)
   homeContent?: HomeContentDto | null;
+
+  // ── Image and text blocks (the whole set is replaced) ──
+  @IsOptional() @ValidateNested() @Type(() => ContentBlocksDto)
+  contentBlocks?: ContentBlocksDto;
 
   // ── Legal notice and privacy notice ───────────────────
   @IsOptional() @IsString() @MaxLength(160)  legalForm?: string;
