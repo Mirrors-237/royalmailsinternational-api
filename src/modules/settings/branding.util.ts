@@ -28,9 +28,10 @@ export const CONTENT_TYPES: Record<ImageType, string> = {
   ico:  'image/x-icon',
 };
 
+// No WebP for logos: the image generated for social sharing (website) cannot read it
 const ALLOWED: Record<BrandingKind, ImageType[]> = {
-  [BrandingKind.LOGO]:         ['png', 'jpg', 'webp', 'svg'],
-  [BrandingKind.LOGO_ON_DARK]: ['png', 'jpg', 'webp', 'svg'],
+  [BrandingKind.LOGO]:         ['png', 'jpg', 'svg'],
+  [BrandingKind.LOGO_ON_DARK]: ['png', 'jpg', 'svg'],
   [BrandingKind.FAVICON]:      ['png', 'svg', 'ico'],
 };
 
