@@ -7,6 +7,7 @@ import { Shipment } from './shipment.entity';
 export enum CheckpointStatus {
   PICKED_UP        = 'PICKED_UP',
   DEPARTED         = 'DEPARTED',
+  IN_TRANSIT       = 'IN_TRANSIT',
   ARRIVED          = 'ARRIVED',
   IN_CUSTOMS       = 'IN_CUSTOMS',
   CUSTOMS_CLEARED  = 'CUSTOMS_CLEARED',

@@ -11,6 +11,7 @@ import { UpdateCheckpointDto } from './dto/update-checkpoint.dto';
 const STATUS_MAP: Partial<Record<CheckpointStatus, ShipmentStatus>> = {
   [CheckpointStatus.PICKED_UP]:        ShipmentStatus.PICKED_UP,
   [CheckpointStatus.DEPARTED]:         ShipmentStatus.IN_TRANSIT,
+  [CheckpointStatus.IN_TRANSIT]:       ShipmentStatus.IN_TRANSIT,
   [CheckpointStatus.ARRIVED]:          ShipmentStatus.IN_TRANSIT,
   [CheckpointStatus.IN_CUSTOMS]:       ShipmentStatus.IN_CUSTOMS,
   [CheckpointStatus.CUSTOMS_CLEARED]:  ShipmentStatus.IN_TRANSIT,
