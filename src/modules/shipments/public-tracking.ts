@@ -18,6 +18,7 @@ export function toPublicTracking(s: Shipment) {
     checkpoints: (s.checkpoints ?? []).map((cp) => ({
       status:      cp.status,
       statusLabel: cp.statusLabel,
+      customName:  cp.customName ?? null,
       facility:    cp.facility ?? null,
       city:        cp.city,
       country:     cp.country,

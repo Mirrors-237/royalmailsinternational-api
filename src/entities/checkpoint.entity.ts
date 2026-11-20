@@ -15,6 +15,7 @@ export enum CheckpointStatus {
   DELIVERED        = 'DELIVERED',
   EXCEPTION        = 'EXCEPTION',
   RETURNED         = 'RETURNED',
+  CUSTOM           = 'CUSTOM', // named in the admin (customName)
 }
 
 @Entity('checkpoints')
@@ -46,6 +47,10 @@ export class Checkpoint {
 
   @Column()
   statusLabel: string; // e.g. "Parcel collected at Paris CDG"
+
+  // Name of the step chosen in the admin, shown on the tracking page: CUSTOM events only
+  @Column({ type: 'varchar', length: 40, nullable: true })
+  customName: string | null;
 
   @Column({ nullable: true })
   facility: string; // e.g. "Charles de Gaulle airport"

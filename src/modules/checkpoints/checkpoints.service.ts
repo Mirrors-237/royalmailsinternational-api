@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Checkpoint } from '../../entities/checkpoint.entity';
@@ -7,7 +7,7 @@ import { CheckpointStatus } from '../../entities/checkpoint.entity';
 import { CreateCheckpointDto } from './dto/create-checkpoint.dto';
 import { UpdateCheckpointDto } from './dto/update-checkpoint.dto';
 
-// Mapping checkpoint → shipment status
+// Mapping checkpoint → shipment status (RETURNED and CUSTOM keep the current status)
 const STATUS_MAP: Partial<Record<CheckpointStatus, ShipmentStatus>> = {
   [CheckpointStatus.PICKED_UP]:        ShipmentStatus.PICKED_UP,
   [CheckpointStatus.DEPARTED]:         ShipmentStatus.IN_TRANSIT,
@@ -33,6 +33,7 @@ export class CheckpointsService {
 
     const checkpoint = this.cpRepo.create({
       ...dto,
+      customName: dto.status === CheckpointStatus.CUSTOM ? dto.customName : null,
       occurredAt: new Date(dto.occurredAt),
     });
     const saved = await this.cpRepo.save(checkpoint);
@@ -57,6 +58,14 @@ export class CheckpointsService {
   async update(id: string, dto: UpdateCheckpointDto): Promise<Checkpoint> {
     const cp = await this.cpRepo.findOne({ where: { id }, relations: { shipment: true } });
     if (!cp) throw new NotFoundException('Checkpoint not found');
+
+    // A custom event keeps a name chosen in the admin; the other types never have one
+    const status = dto.status ?? cp.status;
+    const customName = status === CheckpointStatus.CUSTOM ? (dto.customName !== undefined ? dto.customName : cp.customName) || null : null;
+    if (status === CheckpointStatus.CUSTOM && !customName) {
+      throw new BadRequestException('Enter the name of the step shown to the customer');
+    }
+    cp.customName = customName;
 
     if (dto.occurredAt) cp.occurredAt = new Date(dto.occurredAt);
     if (dto.city)        cp.city        = dto.city;
